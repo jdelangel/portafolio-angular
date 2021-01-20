@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AnyARecord } from 'dns';
 import { InfoPagina } from '../interfaces/info-paginas.interfaces';
 
 @Injectable({
@@ -10,15 +11,26 @@ export class InfoPaginasService {
   info: InfoPagina = {};
   cargada = false;
 
-  constructor(private http: HttpClient) { 
-    //console.log('Servicio de info pagina listo');
+  equipo: any[] = [];
+
+  constructor(private http: HttpClient) {     
+    this.cargarInfo();
+    this.cargarEquipo();
+  }
+
+  private cargarInfo(){
     this.http.get('assets/data/data-pagina.json')
     .subscribe((resp: InfoPagina) => {
       this.info = resp;
-      this.cargada = true;
-
-      console.log(this.info);
+      this.cargada = true;      
     });
+  }
 
+  private cargarEquipo(){
+    // this.http.get('assets/data/data-pagina.json')
+    this.http.get('https://angular-html-76cc5-default-rtdb.firebaseio.com/Equipo.json')
+    .subscribe((resp: any[]) => {      
+      this.equipo = resp;      
+    });
   }
 }
