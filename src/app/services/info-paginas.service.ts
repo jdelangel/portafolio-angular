@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AnyARecord } from 'dns';
 import { InfoPagina } from '../interfaces/info-paginas.interfaces';
 
 @Injectable({
